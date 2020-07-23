@@ -1,12 +1,33 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.repo
 
+import android.text.method.TextKeyListener.clear
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.Observable
 import ru.bey_sviatoslav.android.dogbreedsapplication.businesslogic.http.DogApiService
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsModelState
 import ru.bey_sviatoslav.android.dogbreedsapplication.vo.Breeds
 
 class DogRepository(private val dogApiService: DogApiService) {
-    fun getAllBreeds(): Observable<Breeds>{
+    private val _liveData = MutableLiveData<BreedsModelState>()
+    val liveData: LiveData<BreedsModelState>
+        get() = _liveData
+
+    init {
+        clear()
+    }
+
+    fun getAllBreeds(isRefresher: Boolean = false): Observable<Breeds> {
+        _liveData.value =
+            if (isRefresher) BreedsModelState.BreedsRefresherLoading
+            else BreedsModelState.BreedsLoading
+
         return dogApiService.getAllBreeds()
+    }
+
+
+    fun clear() {
+        _liveData.value = BreedsModelState.Init
     }
 
     companion object {
