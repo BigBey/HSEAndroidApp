@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">DogBreedsApplication</string>
+
+
+    <string name="main_title">Documents</string>
+
+    <string name="docs_loading_error">Error loading documents</string>
+    <string name="docs_loading_retry">Retry</string>
+
+    <string name="document_item_empty">There is no document yet</string>
+
+    <string name="download_description">Loading document</string>
+
+    <string name="sample_breed_name">Breed name</string>
 </resources>
