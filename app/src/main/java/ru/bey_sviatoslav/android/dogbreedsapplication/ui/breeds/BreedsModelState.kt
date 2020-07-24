@@ -16,7 +16,7 @@ sealed class BreedsModelState {
 
     }
 
-    class BreedsLoaded(private val breeds: List<Breed>) : BreedsModelState() {
+    class BreedsLoaded(private val breeds: Map<String, List<String>>) : BreedsModelState() {
         override fun reduce(oldState: BreedsViewState): BreedsViewState =
             BreedsViewState.breedsLoaded(breeds = breeds)
 

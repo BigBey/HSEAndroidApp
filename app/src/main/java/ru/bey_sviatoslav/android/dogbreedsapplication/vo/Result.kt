@@ -1,10 +1,9 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.vo
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-import org.json.JSONArray
+import org.json.JSONObject
+import java.util.*
 
 data class Result (
-    val message: List<JSONArray>,
+    val message: SortedMap<String, List<String>>,
     val status: String
 )

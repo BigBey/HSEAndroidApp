@@ -4,7 +4,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.businesslogic.model.Breed
 import java.lang.Exception
 
 class BreedsViewState(
-    val breeds: List<Breed>,
+    val breeds: Map<String, List<String>>,
     val isBreedsLoading: Boolean,
     val errorLoadingBreeds: Exception?,
     val isRefreshLoading: Boolean,
@@ -12,7 +12,7 @@ class BreedsViewState(
 ) {
     companion object{
         fun init() = BreedsViewState(
-            breeds = emptyList(),
+            breeds = emptyMap(),
             isBreedsLoading = false,
             errorLoadingBreeds = null,
             isRefreshLoading = false,
@@ -20,14 +20,14 @@ class BreedsViewState(
         )
 
         fun breedsLoading() = BreedsViewState(
-            breeds = emptyList(),
+            breeds = emptyMap(),
             isBreedsLoading = true,
             errorLoadingBreeds = null,
             isRefreshLoading = false,
             errorRefreshLoading = null
         )
 
-        fun breedsLoaded(breeds: List<Breed>) = BreedsViewState(
+        fun breedsLoaded(breeds: Map<String, List<String>>) = BreedsViewState(
             breeds = breeds,
             isBreedsLoading = false,
             errorLoadingBreeds = null,
@@ -36,14 +36,14 @@ class BreedsViewState(
         )
 
         fun breedsLoadingFailed(errorLoadingBreeds: Exception?) = BreedsViewState(
-            breeds = emptyList(),
+            breeds = emptyMap(),
             isBreedsLoading = false,
             errorLoadingBreeds = errorLoadingBreeds,
             isRefreshLoading = false,
             errorRefreshLoading = null
         )
 
-        fun breedsRefreshingLoading(breeds: List<Breed>) = BreedsViewState(
+        fun breedsRefreshingLoading(breeds: Map<String, List<String>>) = BreedsViewState(
             breeds = breeds,
             isBreedsLoading = false,
             errorLoadingBreeds = null,
@@ -51,7 +51,7 @@ class BreedsViewState(
             errorRefreshLoading = null
         )
 
-        fun breedsRefreshingLoadingFailed(breeds: List<Breed>, errorRefreshLoading: Exception?) = BreedsViewState(
+        fun breedsRefreshingLoadingFailed(breeds: Map<String, List<String>>, errorRefreshLoading: Exception?) = BreedsViewState(
             breeds = breeds,
             isBreedsLoading = false,
             errorLoadingBreeds = null,

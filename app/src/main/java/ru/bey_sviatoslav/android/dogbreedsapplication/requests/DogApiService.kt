@@ -12,7 +12,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.vo.Result
 interface DogApiService {
 
     @GET("breeds/list/all")
-    fun getAllBreeds(): Call<JSONObject>
+    fun getAllBreeds(): Call<Result>
 
     /**
      * Companion object to create the DogApiService

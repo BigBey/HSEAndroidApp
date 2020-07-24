@@ -8,17 +8,17 @@ import kotlinx.android.synthetic.main.item_breed.view.*
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.businesslogic.model.Breed
 
-class BreedViewHolder(view: View, itemListener: (Breed) -> Unit) : RecyclerView.ViewHolder(view){
-    private val name = view.findViewById<TextView>(R.id.item_document)
+class BreedViewHolder(view: View, itemListener: (MutableMap.MutableEntry<String, List<String>>) -> Unit) : RecyclerView.ViewHolder(view){
+    private val name = view.findViewById<TextView>(R.id.breed_name)
 
-    private lateinit var breed: Breed
+    private lateinit var breed: MutableMap.MutableEntry<String, List<String>>
 
     init {
         view.setOnClickListener {itemListener(breed)}
     }
 
-    fun bind(breed: Breed){
-        name.text = breed.name
+    fun bind(breed: MutableMap.MutableEntry<String, List<String>>){
+        name.text = breed.key
     }
 }
 
