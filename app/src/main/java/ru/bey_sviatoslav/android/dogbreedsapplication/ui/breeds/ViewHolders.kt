@@ -7,6 +7,7 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.item_breed.view.*
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.businesslogic.model.Breed
+import ru.bey_sviatoslav.android.dogbreedsapplication.utils.*
 
 class BreedViewHolder(view: View, itemListener: (Pair<String, List<String>>) -> Unit) : RecyclerView.ViewHolder(view){
     private val name = view.findViewById<TextView>(R.id.breed_name)
@@ -20,7 +21,7 @@ class BreedViewHolder(view: View, itemListener: (Pair<String, List<String>>) -> 
 
     fun bind(breed: Pair<String, List<String>>){
         name.text = breed.first[0].toUpperCase() + breed.first.substring(1)
-        countOfSubbreeds.text = if (breed.second.size == 0)  "" else  "(${breed.second.size} subbreeds)"
+        countOfSubbreeds.text = if (breed.second.size == 0)  "" else  "(${breed.second.size} ${getSubbreedsSuffix(breed.second.size)})"
     }
 }
 
