@@ -51,7 +51,7 @@ class BreedsFragment : Fragment() {
 
             refresher.isEnabled = isRefreshable
             refresher.isRefreshing = it.isRefreshLoading
-            adapter.setItems(it.breeds, state)
+            adapter.setItems(it.breeds.toList(), state)
 
             if (it.errorRefreshLoading != null)
                 Snackbar.make(
@@ -63,7 +63,9 @@ class BreedsFragment : Fragment() {
     }
 
     private fun initViews(){
-        refresher.setOnRefreshListener { viewModel.onRefresh() }
+        refresher.setOnRefreshListener {
+            viewModel.onRefresh()
+        }
         refresher.setColorSchemeResources(R.color.colorAccent)
 
         adapter = BreedsAdapter({viewModel.onRefresh()}, {})

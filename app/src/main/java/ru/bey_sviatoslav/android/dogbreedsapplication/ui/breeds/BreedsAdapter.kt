@@ -2,19 +2,20 @@ package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.businesslogic.model.Breed
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
+import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedsDiffCallback
 import java.util.*
 
 class BreedsAdapter(
-    private val itemListener: (MutableMap.MutableEntry<String, List<String>>) -> Unit,
+    private val itemListener: (Pair<String, List<String>>) -> Unit,
     private val reloadListener: () -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val items = mutableMapOf<String, List<String>>()
-    private lateinit var itemsIterator: Iterator<Map.Entry<String, List<String>>>
+    private val items = mutableListOf<Pair<String, List<String>>>()
     private var state: RecyclerState = RecyclerState.LOADING
 
     private val layoutId: Int
@@ -28,7 +29,7 @@ class BreedsAdapter(
     private val buttonId: Int
         get() = R.id.retry_button
 
-    fun setItems(items: Map<String, List<String>>, state: RecyclerState) {
+    fun setItems(items: List<Pair<String, List<String>>>, state: RecyclerState) {
         if (state == RecyclerState.BREEDS) {
             if (this.state == RecyclerState.BREEDS) {
                 this.state = state
@@ -36,9 +37,11 @@ class BreedsAdapter(
                 this.state = state
                 notifyItemRemoved(0)
             }
+            val diffResult =
+                DiffUtil.calculateDiff(BreedsDiffCallback(this.items.toList(), items.toList()))
             this.items.clear()
-            this.items.putAll(items)
-            itemsIterator = items.iterator()
+            this.items.addAll(items)
+            diffResult.dispatchUpdatesTo(this)
         } else {
             if (this.state == RecyclerState.BREEDS) {
                 notifyItemRangeRemoved(0, itemCount)
@@ -87,7 +90,7 @@ class BreedsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is BreedViewHolder && itemsIterator.hasNext())
-            holder.bind(itemsIterator.next() as MutableMap.MutableEntry<String, List<String>>)
+        if (holder is BreedViewHolder)
+            holder.bind(items[position])
     }
 }
