@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsFragment
 
 class FavouriteBreedsFragment : Fragment() {
 

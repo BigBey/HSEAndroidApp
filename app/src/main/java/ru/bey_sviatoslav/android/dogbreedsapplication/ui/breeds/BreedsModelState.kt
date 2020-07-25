@@ -1,6 +1,5 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds
 
-import ru.bey_sviatoslav.android.dogbreedsapplication.businesslogic.model.Breed
 import java.lang.Exception
 
 sealed class BreedsModelState {

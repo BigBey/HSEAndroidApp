@@ -16,7 +16,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.BreedsViewModel
 
 
-class BreedsFragment : Fragment() {
+class SubbreedsFragment : Fragment() {
     private lateinit var viewModel: BreedsViewModel
     private lateinit var adapter: SubbreedsAdapter
 

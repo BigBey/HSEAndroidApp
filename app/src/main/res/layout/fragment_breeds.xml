@@ -6,7 +6,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_breeds"
-    tools:context=".ui.breeds.BreedsFragment">
+    tools:context=".ui.breeds.SubbreedsFragment">
 
     <Toolbar
         android:id="@+id/toolbar_top"

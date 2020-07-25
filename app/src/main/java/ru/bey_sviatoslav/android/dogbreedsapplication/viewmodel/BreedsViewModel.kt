@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import ru.bey_sviatoslav.android.dogbreedsapplication.repo.DogRepository
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsViewState
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.SubbreedsViewState
 
 class BreedsViewModel : ViewModel() {
     private val dogRepository = DogRepository.getInstance()
