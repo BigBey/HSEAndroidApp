@@ -4,12 +4,19 @@ import androidx.fragment.app.FragmentManager
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsFragment
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.favourite_breeds.FavouriteBreedsFragment
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds.SubbreedsFragment
 
 object Coordinator {
 
     fun onBreedsScreen(fm: FragmentManager){
         fm.beginTransaction()
             .replace(R.id.for_fragment, BreedsFragment.newInstance())
+            .commit()
+    }
+
+    fun onBreedClicked(fm: FragmentManager, breedname: String){
+        fm.beginTransaction()
+            .replace(R.id.for_fragment, SubbreedsFragment.newInstance(breedname))
             .commit()
     }
 

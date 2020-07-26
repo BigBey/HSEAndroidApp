@@ -13,7 +13,9 @@
 
     //breeds list
     <string name="breeds_title">Breeds</string>
+    <string name="subbreeds_title">Breed</string>
     <string name="sample_breed_name">Breed name</string>
+    <string name="sample_subbreed_name">Subbreed name</string>
     <string name="breed_name">%1$s[0].toUpperCase() %1$s.substring(1)</string>
     <string name="count_of_subbreeds">Count of subbreeds</string>
 

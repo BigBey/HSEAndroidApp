@@ -1,4 +1,4 @@
-package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds
+package ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,29 +6,28 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
-import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedsDiffCallback
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.SubbreedsDiffCallback
 
-class BreedsAdapter(
-    private val itemListener: (Pair<String, List<String>>) -> Unit,
+class SubbreedsAdapter(
+    private val itemListener: (String) -> Unit,
     private val reloadListener: () -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val items = mutableListOf<Pair<String, List<String>>>()
+    private val items = mutableListOf<String>()
     private var state: RecyclerState = RecyclerState.LOADING
 
     private val layoutId: Int
         get() =
             when (state) {
                 RecyclerState.LOADING -> R.layout.item_loading
-                RecyclerState.ITEMS -> R.layout.item_breed
+                RecyclerState.ITEMS -> R.layout.item_subbreed
                 RecyclerState.EMPTY -> R.layout.item_empty
                 else -> R.layout.item_error
             }
     private val buttonId: Int
         get() = R.id.retry_button
 
-    fun setItems(items: List<Pair<String, List<String>>>, state: RecyclerState) {
+    fun setItems(items: List<String>, state: RecyclerState) {
         if (state == RecyclerState.ITEMS) {
             if (this.state == RecyclerState.ITEMS) {
                 this.state = state
@@ -37,7 +36,7 @@ class BreedsAdapter(
                 notifyItemRemoved(0)
             }
             val diffResult =
-                DiffUtil.calculateDiff(BreedsDiffCallback(this.items.toList(), items.toList()))
+                DiffUtil.calculateDiff(SubbreedsDiffCallback(this.items.toList(), items.toList()))
             this.items.clear()
             this.items.addAll(items)
             diffResult.dispatchUpdatesTo(this)
@@ -61,7 +60,7 @@ class BreedsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (state) {
-            RecyclerState.ITEMS -> return BreedViewHolder(
+            RecyclerState.ITEMS -> return SubbreedViewHolder(
                 view = LayoutInflater.from(parent.context).inflate(
                     layoutId,
                     parent,
@@ -89,7 +88,7 @@ class BreedsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is BreedViewHolder)
+        if (holder is SubbreedViewHolder)
             holder.bind(items[position])
     }
 }

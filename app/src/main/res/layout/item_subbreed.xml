@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_breed"
+    android:id="@+id/item_subbreed"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/breed_name"
+        android:id="@+id/subbreed_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sample_breed_name"
+        android:text="@string/sample_subbreed_name"
         android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
@@ -19,18 +19,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/count_of_subbreeds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/count_of_subbreeds"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/breed_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.489" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

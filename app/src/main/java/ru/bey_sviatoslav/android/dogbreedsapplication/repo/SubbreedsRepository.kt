@@ -6,9 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.bey_sviatoslav.android.dogbreedsapplication.businesslogic.http.DogApiService
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsModelState
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds.SubbreedsModelState
-import ru.bey_sviatoslav.android.dogbreedsapplication.vo.BreedsResult
 import ru.bey_sviatoslav.android.dogbreedsapplication.vo.SubbreedsResult
 import java.lang.Exception
 
@@ -21,7 +19,7 @@ class SubbreedsRepository(private val dogApiService: DogApiService) {
         clear()
     }
 
-    fun getAllBreeds(breedname : String,isRefresher: Boolean = false){
+    fun getSubbreeds(breedname : String,isRefresher: Boolean = false){
         _liveData.value =
             if (isRefresher) SubbreedsModelState.SubbreedsRefresherLoading
             else SubbreedsModelState.SubbreedsLoading
@@ -31,9 +29,9 @@ class SubbreedsRepository(private val dogApiService: DogApiService) {
         call.enqueue(object : Callback<SubbreedsResult?> {
 
             override fun onResponse(call: Call<SubbreedsResult?>, response: Response<SubbreedsResult?>) {
-                val breeds =
+                val subbreeds =
                     response.body()
-                _liveData.postValue(SubbreedsModelState.SubbreedsLoaded(breeds = breeds!!.message))
+                _liveData.postValue(SubbreedsModelState.SubbreedsLoaded(breeds = subbreeds!!.message))
             }
 
             override fun onFailure(call: Call<SubbreedsResult?>, t: Throwable) {

@@ -7,7 +7,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.repo.BreedsRepository
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsViewState
 
 class BreedsViewModel : ViewModel() {
-    private val dogRepository = BreedsRepository.getInstance()
+    private val breedsRepository = BreedsRepository.getInstance()
 
     private val _viewStateData = MediatorLiveData<BreedsViewState>()
     val viewStateData: LiveData<BreedsViewState>
@@ -16,18 +16,18 @@ class BreedsViewModel : ViewModel() {
     init {
         _viewStateData.value = BreedsViewState.init()
 
-        _viewStateData.addSource(dogRepository.liveData){
+        _viewStateData.addSource(breedsRepository.liveData){
             _viewStateData.value = it.reduce(_viewStateData.value!!)
         }
 
-        dogRepository.getAllBreeds()
+        breedsRepository.getAllBreeds()
     }
 
     fun onRetry() {
-        dogRepository.getAllBreeds()
+        breedsRepository.getAllBreeds()
     }
 
     fun onRefresh() {
-        dogRepository.getAllBreeds(isRefresher = true)
+        breedsRepository.getAllBreeds(isRefresher = true)
     }
 }

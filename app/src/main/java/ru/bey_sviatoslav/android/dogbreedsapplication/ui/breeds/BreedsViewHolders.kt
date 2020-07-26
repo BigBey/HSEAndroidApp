@@ -20,6 +20,7 @@ class BreedViewHolder(view: View, itemListener: (Pair<String, List<String>>) -> 
     }
 
     fun bind(breed: Pair<String, List<String>>){
+        this.breed = breed
         name.text = breed.first[0].toUpperCase() + breed.first.substring(1)
         countOfSubbreeds.text = if (breed.second.size == 0)  "" else  "(${breed.second.size} ${getSubbreedsSuffix(breed.second.size)})"
     }

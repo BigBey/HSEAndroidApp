@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_breeds.*
 
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
+import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.BreedsViewModel
 
 
@@ -41,11 +42,11 @@ class BreedsFragment : Fragment() {
         initViews()
 
         viewModel.viewStateData.observe(this.viewLifecycleOwner, Observer {
-            val state = when{
+            val state = when {
                 it.isBreedsLoading -> RecyclerState.LOADING
                 it.errorLoadingBreeds != null -> RecyclerState.ERROR
                 it.breeds.isEmpty() -> RecyclerState.EMPTY
-                else -> RecyclerState.BREEDS
+                else -> RecyclerState.ITEMS
             }
             val isRefreshable = !(it.isBreedsLoading || it.errorLoadingBreeds != null)
 
@@ -62,13 +63,18 @@ class BreedsFragment : Fragment() {
         })
     }
 
-    private fun initViews(){
+    private fun initViews() {
         refresher.setOnRefreshListener {
             viewModel.onRefresh()
         }
         refresher.setColorSchemeResources(R.color.colorAccent)
 
-        adapter = BreedsAdapter({viewModel.onRefresh()}, {})
+        adapter = BreedsAdapter({
+            Coordinator.onBreedClicked(
+                requireActivity().supportFragmentManager,
+                it.first
+            )
+        }, { viewModel.onRefresh() })
 
         breeds_recycler.adapter = adapter
         breeds_recycler.layoutManager = LinearLayoutManager(this.activity)
