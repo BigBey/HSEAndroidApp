@@ -43,7 +43,7 @@ class SubbreedsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
+        //
         viewModel.viewStateData.observe(this.viewLifecycleOwner, Observer {
             val state = when{
                 it.isBreedsLoading -> RecyclerState.LOADING
