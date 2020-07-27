@@ -21,6 +21,9 @@ interface DogApiService {
     @GET("breed/{breedname}/images")
     fun getBreedImages(@Path("breedname") breedname: String): Call<BreedImagesResult>
 
+    @GET("breed/{breedname}/{subbreedname}/images")
+    fun getSubbreedImages(@Path("breedname") breedname: String, @Path("subbreedname") subbreedname: String): Call<BreedImagesResult>
+
     /**
      * Companion object to create the DogApiService
      */

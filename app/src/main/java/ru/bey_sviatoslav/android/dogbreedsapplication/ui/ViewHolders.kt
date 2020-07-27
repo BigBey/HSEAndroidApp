@@ -50,7 +50,7 @@ class BreedImageViewHolder(view: View, itemListener: (String) -> Unit) : Recycle
     }
 
     fun bind(breedImageLink: String){
-        Glide.with(itemView).load(breedImageLink).placeholder(R.drawable.ic_heart).into(breedImage)
+        Glide.with(itemView).load(breedImageLink).placeholder(R.drawable.ic_dog).into(breedImage)
     }
 }
 

@@ -3,11 +3,11 @@ package ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import ru.bey_sviatoslav.android.dogbreedsapplication.repo.BreedImagesRepository
+import ru.bey_sviatoslav.android.dogbreedsapplication.repo.SubbreedImagesRepository
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.BreedImagesViewState
 
-class BreedImagesViewModel: ViewModel() {
-    private val breedImagesRepository = BreedImagesRepository.getInstance()
+class SubbreedImagesViewModel: ViewModel() {
+    private val breedImagesRepository = SubbreedImagesRepository.getInstance()
 
     private val _viewStateData = MediatorLiveData<BreedImagesViewState>()
     val viewStateData: LiveData<BreedImagesViewState>
@@ -21,11 +21,11 @@ class BreedImagesViewModel: ViewModel() {
         }
     }
 
-    fun onRetry(breedname: String) {
-        breedImagesRepository.getBreedImages(breedname)
+    fun onRetry(breedname: String, subbreedname: String) {
+        breedImagesRepository.getSubbreedImages(breedname, subbreedname)
     }
 
-    fun onRefresh(breedname: String) {
-        breedImagesRepository.getBreedImages(breedname, isRefresher = true)
+    fun onRefresh(breedname: String, subbreedname: String) {
+        breedImagesRepository.getSubbreedImages(breedname, subbreedname, isRefresher = true)
     }
 }

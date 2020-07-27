@@ -10,7 +10,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.BreedImages
 import ru.bey_sviatoslav.android.dogbreedsapplication.vo.BreedImagesResult
 import java.lang.Exception
 
-class BreedImagesRepository(private val dogApiService: DogApiService) {
+class SubbreedImagesRepository(private val dogApiService: DogApiService) {
     private val _liveData = MutableLiveData<BreedImagesModelState>()
     val liveData: LiveData<BreedImagesModelState>
         get() = _liveData
@@ -19,12 +19,12 @@ class BreedImagesRepository(private val dogApiService: DogApiService) {
         clear()
     }
 
-    fun getBreedImages(breedname : String,isRefresher: Boolean = false){
+    fun getSubbreedImages(breedname : String, subbreedname: String, isRefresher: Boolean = false){
         _liveData.value =
             if (isRefresher) BreedImagesModelState.BreedImagesRefresherLoading
             else BreedImagesModelState.BreedImagesLoading
 
-        val call = dogApiService.getBreedImages(breedname)
+        val call = dogApiService.getSubbreedImages(breedname, subbreedname)
 
         call.enqueue(object : Callback<BreedImagesResult?> {
 
@@ -52,10 +52,10 @@ class BreedImagesRepository(private val dogApiService: DogApiService) {
     }
 
     companion object {
-        private lateinit var _instance: BreedImagesRepository
-        fun getInstance(): BreedImagesRepository {
+        private lateinit var _instance: SubbreedImagesRepository
+        fun getInstance(): SubbreedImagesRepository {
             if (!::_instance.isInitialized)
-                _instance = BreedImagesRepository(DogApiService.create())
+                _instance = SubbreedImagesRepository(DogApiService.create())
             return _instance
         }
     }
