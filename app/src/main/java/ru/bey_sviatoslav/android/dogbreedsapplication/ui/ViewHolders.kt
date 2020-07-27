@@ -36,6 +36,7 @@ class SubbreedViewHolder(view: View, itemListener: (String) -> Unit) : RecyclerV
     }
 
     fun bind(subbreed: String){
+        this.subbreed = subbreed
         name.text = subbreed[0].toUpperCase() + subbreed.substring(1)
     }
 }
@@ -50,6 +51,7 @@ class BreedImageViewHolder(view: View, itemListener: (String) -> Unit) : Recycle
     }
 
     fun bind(breedImageLink: String){
+        this.breedImageLink = breedImageLink
         Glide.with(itemView).load(breedImageLink).placeholder(R.drawable.ic_dog).into(breedImage)
     }
 }

@@ -44,7 +44,7 @@ class SubbreedsFragment : Fragment() {
         initViews()
 
         viewModel.viewStateData.observe(this.viewLifecycleOwner, Observer {
-            val state = when{
+            val state = when {
                 it.isBreedsLoading -> RecyclerState.LOADING
                 it.errorLoadingBreeds != null -> RecyclerState.ERROR
                 it.subbreeds.isEmpty() -> RecyclerState.EMPTY
@@ -65,7 +65,7 @@ class SubbreedsFragment : Fragment() {
         })
     }
 
-    private fun initViews(){
+    private fun initViews() {
         imgvw_back_to_breeds.setOnClickListener {
             Coordinator.onSubbreedsPop(requireActivity().supportFragmentManager)
         }
@@ -75,7 +75,13 @@ class SubbreedsFragment : Fragment() {
         }
         refresher_subbreeds.setColorSchemeResources(R.color.colorAccent)
 
-        adapter = SubbreedsAdapter({viewModel.onRefresh(arguments?.getString("breedname") ?: "Breed name")}, {})
+        adapter = SubbreedsAdapter({
+            Coordinator.onSubbreedClicked(
+                requireActivity().supportFragmentManager,
+                arguments?.getString("breedname") ?: "Breed name",
+                it
+            )
+        }, { viewModel.onRefresh(arguments?.getString("breedname") ?: "Breed name") })
 
         recycler_subbreeds.adapter = adapter
         recycler_subbreeds.layoutManager = LinearLayoutManager(this.activity)

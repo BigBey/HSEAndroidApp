@@ -19,6 +19,9 @@
     <string name="breed_name">%1$s[0].toUpperCase() %1$s.substring(1)</string>
     <string name="count_of_subbreeds">Count of subbreeds</string>
 
+    //images list
+    <string name="back">Back</string>
+
     //bottom navigation
     <string name="list_icon_title">List</string>
     <string name="favourites_icon_title">Favourites</string>

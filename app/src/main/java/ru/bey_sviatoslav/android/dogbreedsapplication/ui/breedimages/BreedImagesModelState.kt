@@ -1,6 +1,5 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages
 
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds.SubbreedsViewState
 import java.lang.Exception
 
 sealed class BreedImagesModelState {

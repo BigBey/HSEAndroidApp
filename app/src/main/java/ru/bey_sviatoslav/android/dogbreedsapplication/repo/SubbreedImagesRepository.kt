@@ -7,12 +7,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.bey_sviatoslav.android.dogbreedsapplication.businesslogic.http.DogApiService
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.BreedImagesModelState
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.SubbreedImagesModelState
 import ru.bey_sviatoslav.android.dogbreedsapplication.vo.BreedImagesResult
 import java.lang.Exception
 
 class SubbreedImagesRepository(private val dogApiService: DogApiService) {
-    private val _liveData = MutableLiveData<BreedImagesModelState>()
-    val liveData: LiveData<BreedImagesModelState>
+    private val _liveData = MutableLiveData<SubbreedImagesModelState>()
+    val liveData: LiveData<SubbreedImagesModelState>
         get() = _liveData
 
     init {
@@ -21,25 +22,25 @@ class SubbreedImagesRepository(private val dogApiService: DogApiService) {
 
     fun getSubbreedImages(breedname : String, subbreedname: String, isRefresher: Boolean = false){
         _liveData.value =
-            if (isRefresher) BreedImagesModelState.BreedImagesRefresherLoading
-            else BreedImagesModelState.BreedImagesLoading
+            if (isRefresher) SubbreedImagesModelState.SubbreedImagesRefresherLoading
+            else SubbreedImagesModelState.SubbreedImagesLoading
 
         val call = dogApiService.getSubbreedImages(breedname, subbreedname)
 
         call.enqueue(object : Callback<BreedImagesResult?> {
 
             override fun onResponse(call: Call<BreedImagesResult?>, response: Response<BreedImagesResult?>) {
-                val breedImages =
+                val subbreedImages =
                     response.body()
-                _liveData.postValue(BreedImagesModelState.BreedImagesLoaded(breedImages = breedImages!!.message))
+                _liveData.postValue(SubbreedImagesModelState.SubbreedImagesLoaded(subbreedImages = subbreedImages!!.message))
             }
 
             override fun onFailure(call: Call<BreedImagesResult?>, t: Throwable) {
                 _liveData.postValue(
                     if (isRefresher)
-                        BreedImagesModelState.BreedImagesRefresherLoadingFailed(t as Exception)
+                        SubbreedImagesModelState.SubbreedImagesRefresherLoadingFailed(t as Exception)
                     else
-                        BreedImagesModelState.BreedImagesLoadingFailed(t as Exception)
+                        SubbreedImagesModelState.SubbreedImagesLoadingFailed(t as Exception)
                 )
             }
 
@@ -48,7 +49,7 @@ class SubbreedImagesRepository(private val dogApiService: DogApiService) {
 
 
     fun clear() {
-        _liveData.value = BreedImagesModelState.Init
+        _liveData.value = SubbreedImagesModelState.Init
     }
 
     companion object {

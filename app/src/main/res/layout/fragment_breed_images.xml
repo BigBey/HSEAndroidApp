@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_subbreeds"
+    android:id="@+id/fragment_breed_images"
     tools:context=".ui.breeds.BreedsFragment">
 
     <Toolbar
@@ -25,7 +25,7 @@
             android:id="@+id/toolbar_title_back_to_breeds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/breeds_title"
+            android:text="@string/back"
             android:layout_gravity="left"
             android:textSize="20sp"/>
 

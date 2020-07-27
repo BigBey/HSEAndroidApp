@@ -4,17 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import ru.bey_sviatoslav.android.dogbreedsapplication.repo.SubbreedImagesRepository
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.BreedImagesViewState
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.SubbreedImagesViewState
 
 class SubbreedImagesViewModel: ViewModel() {
     private val breedImagesRepository = SubbreedImagesRepository.getInstance()
 
-    private val _viewStateData = MediatorLiveData<BreedImagesViewState>()
-    val viewStateData: LiveData<BreedImagesViewState>
+    private val _viewStateData = MediatorLiveData<SubbreedImagesViewState>()
+    val viewStateData: LiveData<SubbreedImagesViewState>
         get() = _viewStateData
 
     init {
-        _viewStateData.value = BreedImagesViewState.init()
+        _viewStateData.value = SubbreedImagesViewState.init()
 
         _viewStateData.addSource(breedImagesRepository.liveData){
             _viewStateData.value = it.reduce(_viewStateData.value!!)
