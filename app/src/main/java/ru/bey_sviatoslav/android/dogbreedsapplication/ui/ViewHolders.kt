@@ -1,8 +1,10 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.getSubbreedsSuffix
@@ -35,6 +37,20 @@ class SubbreedViewHolder(view: View, itemListener: (String) -> Unit) : RecyclerV
 
     fun bind(subbreed: String){
         name.text = subbreed[0].toUpperCase() + subbreed.substring(1)
+    }
+}
+
+class BreedImageViewHolder(view: View, itemListener: (String) -> Unit) : RecyclerView.ViewHolder(view){
+    private val breedImage = view.findViewById<ImageView>(R.id.breed_image_holder)
+
+    private lateinit var breedImageLink: String
+
+    init {
+        view.setOnClickListener {itemListener(breedImageLink)}
+    }
+
+    fun bind(breedImageLink: String){
+        Glide.with(itemView).load(breedImageLink).placeholder(R.drawable.ic_heart).into(breedImage)
     }
 }
 

@@ -9,7 +9,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.ui.LoadingViewHolder
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.MessageViewHolder
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.SubbreedViewHolder
-import ru.bey_sviatoslav.android.dogbreedsapplication.utils.SubbreedsDiffCallback
+import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedImagesDiffCallback
 
 class SubbreedsAdapter(
     private val itemListener: (String) -> Unit,
@@ -39,7 +39,7 @@ class SubbreedsAdapter(
                 notifyItemRemoved(0)
             }
             val diffResult =
-                DiffUtil.calculateDiff(SubbreedsDiffCallback(this.items.toList(), items.toList()))
+                DiffUtil.calculateDiff(BreedImagesDiffCallback(this.items.toList(), items.toList()))
             this.items.clear()
             this.items.addAll(items)
             diffResult.dispatchUpdatesTo(this)

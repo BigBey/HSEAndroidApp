@@ -1,36 +1,32 @@
-package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds
+package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.BreedViewHolder
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.LoadingViewHolder
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.MessageViewHolder
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
-import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedsDiffCallback
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.*
+import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedImagesDiffCallback
 
-class BreedsAdapter(
-    private val itemListener: (Pair<String, List<String>>) -> Unit,
+class BreedImagesAdapter(
+    private val itemLikeListener: (String) -> Unit,
     private val reloadListener: () -> Unit
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val items = mutableListOf<Pair<String, List<String>>>()
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val items = mutableListOf<String>()
     private var state: RecyclerState = RecyclerState.LOADING
 
     private val layoutId: Int
         get() =
             when (state) {
                 RecyclerState.LOADING -> R.layout.item_loading
-                RecyclerState.ITEMS -> R.layout.item_breed
+                RecyclerState.ITEMS -> R.layout.item_breed_image
                 RecyclerState.EMPTY -> R.layout.item_empty
                 else -> R.layout.item_error
             }
     private val buttonId: Int
         get() = R.id.retry_button
 
-    fun setItems(items: List<Pair<String, List<String>>>, state: RecyclerState) {
+    fun setItems(items: List<String>, state: RecyclerState) {
         if (state == RecyclerState.ITEMS) {
             if (this.state == RecyclerState.ITEMS) {
                 this.state = state
@@ -39,7 +35,7 @@ class BreedsAdapter(
                 notifyItemRemoved(0)
             }
             val diffResult =
-                DiffUtil.calculateDiff(BreedsDiffCallback(this.items.toList(), items.toList()))
+                DiffUtil.calculateDiff(BreedImagesDiffCallback(this.items.toList(), items.toList()))
             this.items.clear()
             this.items.addAll(items)
             diffResult.dispatchUpdatesTo(this)
@@ -63,13 +59,13 @@ class BreedsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (state) {
-            RecyclerState.ITEMS -> return BreedViewHolder(
+            RecyclerState.ITEMS -> return BreedImageViewHolder(
                 view = LayoutInflater.from(parent.context).inflate(
                     layoutId,
                     parent,
                     false
                 ),
-                itemListener = itemListener
+                itemListener = itemLikeListener
             )
             RecyclerState.LOADING, RecyclerState.EMPTY -> return LoadingViewHolder(
                 view = LayoutInflater.from(parent.context).inflate(
@@ -91,7 +87,7 @@ class BreedsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is BreedViewHolder)
+        if (holder is BreedImageViewHolder)
             holder.bind(items[position])
     }
 }

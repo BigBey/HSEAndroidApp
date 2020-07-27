@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_breed_images"
+    android:id="@+id/fragment_subbreeds"
     tools:context=".ui.breeds.BreedsFragment">
 
     <Toolbar
@@ -15,7 +15,7 @@
         android:minHeight="?attr/actionBarSize">
 
         <ImageView
-            android:id="@+id/imgvw_back_to_breeds"
+            android:id="@+id/imgvw_back_to_breeds_from_images"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:foregroundGravity="left"
@@ -34,23 +34,22 @@
             android:layout_height="wrap_content"
             android:text="@string/subbreeds_title"
             android:layout_gravity="center"
-            android:id="@+id/toolbar_title_subbreeds"
+            android:id="@+id/toolbar_title_breed_images"
             android:textSize="20sp"/>
 
 
     </Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refresher_subbreeds"
+        android:id="@+id/refresher_breed_images"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_subbreeds"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager_breed_images"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/gutter_default"
-            tools:listitem="@layout/item_subbreed"/>
+            />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -72,7 +72,8 @@ class BreedsFragment : Fragment() {
         adapter = BreedsAdapter({
             Coordinator.onBreedClicked(
                 requireActivity().supportFragmentManager,
-                it.first
+                it.first,
+                it.second.size
             )
         }, { viewModel.onRefresh() })
 
