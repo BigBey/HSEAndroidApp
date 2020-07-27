@@ -17,6 +17,7 @@ object Coordinator {
     fun onBreedClicked(fm: FragmentManager, breedname: String){
         fm.beginTransaction()
             .replace(R.id.for_fragment, SubbreedsFragment.newInstance(breedname))
+            .addToBackStack("BREEDS")
             .commit()
     }
 
@@ -24,5 +25,9 @@ object Coordinator {
         fm.beginTransaction()
             .replace(R.id.for_fragment, FavouriteBreedsFragment.newInstance())
             .commit()
+    }
+
+    fun onSubbreedsPop(fm: FragmentManager){
+        fm.popBackStack()
     }
 }

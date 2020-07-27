@@ -1,6 +1,5 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds
 
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsViewState
 import java.lang.Exception
 
 sealed class SubbreedsModelState {
@@ -12,32 +11,32 @@ sealed class SubbreedsModelState {
 
     object SubbreedsLoading : SubbreedsModelState() {
         override fun reduce(oldState: SubbreedsViewState): SubbreedsViewState =
-            SubbreedsViewState.breedsLoading()
+            SubbreedsViewState.subbreedsLoading()
 
     }
 
-    class SubbreedsLoaded(private val breeds: List<String>) : SubbreedsModelState() {
+    class SubbreedsLoaded(private val subbreeds: List<String>) : SubbreedsModelState() {
         override fun reduce(oldState: SubbreedsViewState): SubbreedsViewState =
-            SubbreedsViewState.breedsLoaded(breeds = breeds)
+            SubbreedsViewState.subbreedsLoaded(subbreeds = subbreeds)
 
     }
 
     class SubbreedsLoadingFailed(private val error: Exception) : SubbreedsModelState() {
         override fun reduce(oldState: SubbreedsViewState): SubbreedsViewState =
-            SubbreedsViewState.breedsLoadingFailed(errorLoadingBreeds = error)
+            SubbreedsViewState.subbreedsLoadingFailed(errorLoadingBreeds = error)
 
     }
 
     object SubbreedsRefresherLoading : SubbreedsModelState() {
         override fun reduce(oldState: SubbreedsViewState): SubbreedsViewState =
-            SubbreedsViewState.breedsRefreshingLoading(oldState.breeds)
+            SubbreedsViewState.subbreedsRefreshingLoading(oldState.subbreeds)
 
     }
 
     class SubbreedsRefresherLoadingFailed(private val error: Exception) : SubbreedsModelState() {
         override fun reduce(oldState: SubbreedsViewState): SubbreedsViewState =
-            SubbreedsViewState.breedsRefreshingLoadingFailed(
-                breeds = oldState.breeds,
+            SubbreedsViewState.subbreedsRefreshingLoadingFailed(
+                subbreeds = oldState.subbreeds,
                 errorRefreshLoading = error
             )
 

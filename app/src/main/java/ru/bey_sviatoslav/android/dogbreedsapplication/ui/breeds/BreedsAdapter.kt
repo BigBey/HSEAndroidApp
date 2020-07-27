@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.BreedViewHolder
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.LoadingViewHolder
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.MessageViewHolder
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedsDiffCallback
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.SubbreedsDiffCallback

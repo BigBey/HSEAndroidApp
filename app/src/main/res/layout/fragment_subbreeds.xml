@@ -14,6 +14,20 @@
         android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize">
 
+        <ImageView
+            android:id="@+id/imgvw_back_to_breeds"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:foregroundGravity="left"
+            android:src="@drawable/ic_left_arrow"/>
+
+        <TextView
+            android:id="@+id/toolbar_title_back_to_breeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/breeds_title"
+            android:layout_gravity="left"
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,7 +35,7 @@
             android:text="@string/subbreeds_title"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title_subbreeds"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
 
 
     </Toolbar>

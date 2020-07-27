@@ -31,7 +31,7 @@ class SubbreedsRepository(private val dogApiService: DogApiService) {
             override fun onResponse(call: Call<SubbreedsResult?>, response: Response<SubbreedsResult?>) {
                 val subbreeds =
                     response.body()
-                _liveData.postValue(SubbreedsModelState.SubbreedsLoaded(breeds = subbreeds!!.message))
+                _liveData.postValue(SubbreedsModelState.SubbreedsLoaded(subbreeds = subbreeds!!.message))
             }
 
             override fun onFailure(call: Call<SubbreedsResult?>, t: Throwable) {

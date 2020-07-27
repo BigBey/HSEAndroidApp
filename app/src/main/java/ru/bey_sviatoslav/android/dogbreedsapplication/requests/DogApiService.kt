@@ -6,6 +6,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import ru.bey_sviatoslav.android.dogbreedsapplication.vo.BreedImagesResult
 import ru.bey_sviatoslav.android.dogbreedsapplication.vo.BreedsResult
 import ru.bey_sviatoslav.android.dogbreedsapplication.vo.SubbreedsResult
 
@@ -16,6 +17,9 @@ interface DogApiService {
 
     @GET("breed/{breedname}/list")
     fun getSubbreeds(@Path("breedname") breedname: String): Call<SubbreedsResult>
+
+    @GET("breed/{breedname}/images")
+    fun getBreedImages(@Path("breedname") breedname: String): Call<BreedImagesResult>
 
     /**
      * Companion object to create the DogApiService
