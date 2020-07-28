@@ -27,6 +27,9 @@
     <string name="favourites_icon_title">Favourites</string>
 
     //share screen
+    <string name="share_dialog_title">Share photo</string>
+    <string name="share_dialog_confirm_button">Share</string>
+    <string name="share_dialog_cancel_button">Cancel</string>
     <string name="send_to">Share image via</string>
 
     <!-- TODO: Remove or change this placeholder text -->

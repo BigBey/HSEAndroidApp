@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_breed_images.*
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
@@ -69,7 +70,15 @@ class BreedImagesFragment : Fragment() {
         }
 
         imgvw_share.setOnClickListener {
-            sharePhoto(adapter.getCurrentItem(viewpager_breed_images.currentItem), context!!)
+            MaterialAlertDialogBuilder(context)
+                .setTitle(resources.getString(R.string.share_dialog_title))
+                .setNegativeButton(resources.getString(R.string.share_dialog_cancel_button)){ dialog, which ->
+                    //Cancel
+                }
+                .setPositiveButton(resources.getString(R.string.share_dialog_confirm_button)){ dialog, which ->
+                    sharePhoto(adapter.getCurrentItem(viewpager_breed_images.currentItem), context!!)
+                }
+                .show()
         }
 
         refresher_breed_images.setOnRefreshListener {
