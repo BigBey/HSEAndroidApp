@@ -1,9 +1,59 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.utils
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Environment
+import androidx.core.content.FileProvider
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
+import ru.bey_sviatoslav.android.dogbreedsapplication.R
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+
 fun getSubbreedsSuffix(count: Int): String{
     if(count == 1){
         return "subbreed"
     }else{
         return "subbreeds"
     }
+}
+
+fun sharePhoto(url: String?, context: Context) {
+    Picasso.with(context.applicationContext).load(url)
+        .into(object : Target {
+            override fun onBitmapFailed() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                val shareIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap!!, context))
+                    type = "image/*"
+                }
+                context.startActivity(
+                    Intent.createChooser(shareIntent, context.resources.getText(
+                        R.string.send_to)))
+            }
+        })
+}
+
+fun getLocalBitmapUri(bmp: Bitmap, context: Context): Uri? {
+    var bmpUri: Uri? = null
+    try {
+        val file = File(
+            context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            "share_image_" + System.currentTimeMillis() + ".png"
+        )
+        val out = FileOutputStream(file)
+        bmp.compress(Bitmap.CompressFormat.PNG, 90, out)
+        out.close()
+        bmpUri = FileProvider.getUriForFile(context, context.applicationContext.packageName + ".provider", file)
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return bmpUri
 }

@@ -26,6 +26,10 @@ class BreedImagesAdapter(
     private val buttonId: Int
         get() = R.id.retry_button
 
+    fun getCurrentItem(position: Int): String{
+        return items[position]
+    }
+
     fun setItems(items: List<String>, state: RecyclerState) {
         if (state == RecyclerState.ITEMS) {
             if (this.state == RecyclerState.ITEMS) {

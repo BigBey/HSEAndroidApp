@@ -37,6 +37,13 @@
             android:id="@+id/toolbar_title_breed_images"
             android:textSize="20sp"/>
 
+        <ImageView
+            android:id="@+id/imgvw_share"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="right"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_share"/>
 
     </Toolbar>
 

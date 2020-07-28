@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_breed_images.*
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
+import ru.bey_sviatoslav.android.dogbreedsapplication.utils.sharePhoto
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.BreedImagesViewModel
 
 class BreedImagesFragment : Fragment() {
@@ -65,6 +66,10 @@ class BreedImagesFragment : Fragment() {
     private fun initViews(){
         imgvw_back_to_breeds_from_images.setOnClickListener {
             Coordinator.onSubbreedsPop(requireActivity().supportFragmentManager)
+        }
+
+        imgvw_share.setOnClickListener {
+            sharePhoto(adapter.getCurrentItem(viewpager_breed_images.currentItem), context!!)
         }
 
         refresher_breed_images.setOnRefreshListener {
