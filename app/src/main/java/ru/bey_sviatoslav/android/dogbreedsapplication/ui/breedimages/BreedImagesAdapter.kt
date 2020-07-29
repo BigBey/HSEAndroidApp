@@ -1,7 +1,9 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
@@ -10,7 +12,8 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedImagesDiffCallb
 
 class BreedImagesAdapter(
     private val itemLikeListener: (String) -> Unit,
-    private val reloadListener: () -> Unit
+    private val reloadListener: () -> Unit,
+    private val fragment: Fragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<String>()
     private var state: RecyclerState = RecyclerState.LOADING
@@ -69,7 +72,8 @@ class BreedImagesAdapter(
                     parent,
                     false
                 ),
-                itemListener = itemLikeListener
+                itemListener = itemLikeListener,
+                fragment = fragment
             )
             RecyclerState.LOADING, RecyclerState.EMPTY -> return LoadingViewHolder(
                 view = LayoutInflater.from(parent.context).inflate(

@@ -86,7 +86,7 @@ class BreedImagesFragment : Fragment() {
         }
         refresher_breed_images.setColorSchemeResources(R.color.colorAccent)
 
-        adapter = BreedImagesAdapter({viewModel.onRefresh(arguments?.getString("breedname") ?: "Breed name")}, {})
+        adapter = BreedImagesAdapter({viewModel.onRefresh(arguments?.getString("breedname") ?: "Breed name")}, {}, this)
 
         viewpager_breed_images.adapter = adapter
         viewpager_breed_images.orientation = ViewPager2.ORIENTATION_VERTICAL
