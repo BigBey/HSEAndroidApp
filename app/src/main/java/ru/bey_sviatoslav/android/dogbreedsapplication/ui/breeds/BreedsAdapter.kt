@@ -43,6 +43,7 @@ class BreedsAdapter(
             this.items.clear()
             this.items.addAll(items)
             diffResult.dispatchUpdatesTo(this)
+            //
         } else {
             if (this.state == RecyclerState.ITEMS) {
                 notifyItemRangeRemoved(0, itemCount)
