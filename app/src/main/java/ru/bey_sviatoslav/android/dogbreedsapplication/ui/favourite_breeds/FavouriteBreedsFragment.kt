@@ -10,16 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_favourite_breeds.*
-import kotlinx.android.synthetic.main.fragment_subbreeds.*
 
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsFragment
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds.SubbreedsAdapter
-import ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds.SubbreedsFragment
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.FavoriteBreedsViewModel
-import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.SubbreedsViewModel
 
 class FavouriteBreedsFragment : Fragment() {
     private lateinit var viewModel: FavoriteBreedsViewModel
@@ -48,12 +43,13 @@ class FavouriteBreedsFragment : Fragment() {
 
         viewModel.viewStateData.observe(this.viewLifecycleOwner, Observer {
             val state = when {
-                it.isBreedsLoading -> RecyclerState.LOADING
-                it.errorLoadingBreeds != null -> RecyclerState.ERROR
+                it.isFavoriteBreedsLoading -> RecyclerState.LOADING
+                it.errorLoadingFavoriteBreeds != null -> RecyclerState.ERROR
                 it.favoriteBreeds.isEmpty() -> RecyclerState.EMPTY
                 else -> RecyclerState.ITEMS
             }
-            val isRefreshable = !(it.isBreedsLoading || it.errorLoadingBreeds != null)
+            val isRefreshable =
+                !(it.isFavoriteBreedsLoading || it.errorLoadingFavoriteBreeds != null)
 
             refresher_favorite_breeds.isEnabled = isRefreshable
             refresher_favorite_breeds.isRefreshing = it.isRefreshLoading
@@ -76,8 +72,8 @@ class FavouriteBreedsFragment : Fragment() {
         refresher_favorite_breeds.setColorSchemeResources(R.color.colorAccent)
 
         adapter = FavoriteBreedsAdapter({
-            //
-        }, { viewModel.onRefresh()}, context!!)
+            Coordinator.onFavoriteBreedClicked(requireActivity().supportFragmentManager, it)
+        }, { viewModel.onRefresh() }, context!!)
 
         recycler_favorite_breeds.adapter = adapter
         recycler_favorite_breeds.layoutManager = LinearLayoutManager(this.activity)

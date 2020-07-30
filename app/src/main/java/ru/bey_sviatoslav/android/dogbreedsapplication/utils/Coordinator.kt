@@ -5,6 +5,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.BreedImagesFragment
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.SubbreedImagesFragment
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds.BreedsFragment
+import ru.bey_sviatoslav.android.dogbreedsapplication.ui.favorite_breed_images.FavoriteBreedImagesFragment
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.favourite_breeds.FavouriteBreedsFragment
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds.SubbreedsFragment
 
@@ -41,6 +42,13 @@ object Coordinator {
     fun onFavouriteBreedsScreen(fm: FragmentManager) {
         fm.beginTransaction()
             .replace(R.id.for_fragment, FavouriteBreedsFragment.newInstance())
+            .commit()
+    }
+
+    fun onFavoriteBreedClicked(fm: FragmentManager, breedname: String){
+        fm.beginTransaction()
+            .replace(R.id.for_fragment, FavoriteBreedImagesFragment.newInstance(breedname))
+            .addToBackStack("FAVORITE_BREEDS")
             .commit()
     }
 

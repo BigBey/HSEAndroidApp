@@ -4,56 +4,56 @@ import java.lang.Exception
 
 class FavoriteBreedsViewState(
     val favoriteBreeds: List<String>,
-    val isBreedsLoading: Boolean,
-    val errorLoadingBreeds: Exception?,
+    val isFavoriteBreedsLoading: Boolean,
+    val errorLoadingFavoriteBreeds: Exception?,
     val isRefreshLoading: Boolean,
     val errorRefreshLoading: Exception?
 ) {
     companion object{
         fun init() = FavoriteBreedsViewState(
             favoriteBreeds = emptyList(),
-            isBreedsLoading = false,
-            errorLoadingBreeds = null,
+            isFavoriteBreedsLoading = false,
+            errorLoadingFavoriteBreeds = null,
             isRefreshLoading = false,
             errorRefreshLoading = null
         )
 
         fun favoriteBreedsLoading() = FavoriteBreedsViewState(
             favoriteBreeds = emptyList(),
-            isBreedsLoading = true,
-            errorLoadingBreeds = null,
+            isFavoriteBreedsLoading = true,
+            errorLoadingFavoriteBreeds = null,
             isRefreshLoading = false,
             errorRefreshLoading = null
         )
 
         fun favoriteBreedsLoaded(favoriteBreeds: List<String>) = FavoriteBreedsViewState(
             favoriteBreeds = favoriteBreeds,
-            isBreedsLoading = false,
-            errorLoadingBreeds = null,
+            isFavoriteBreedsLoading = false,
+            errorLoadingFavoriteBreeds = null,
             isRefreshLoading = false,
             errorRefreshLoading = null
         )
 
         fun favoriteBreedsLoadingFailed(errorLoadingBreeds: Exception?) = FavoriteBreedsViewState(
             favoriteBreeds = emptyList(),
-            isBreedsLoading = false,
-            errorLoadingBreeds = errorLoadingBreeds,
+            isFavoriteBreedsLoading = false,
+            errorLoadingFavoriteBreeds = errorLoadingBreeds,
             isRefreshLoading = false,
             errorRefreshLoading = null
         )
 
         fun favoriteBreedsRefreshingLoading(favoriteBreeds: List<String>) = FavoriteBreedsViewState(
             favoriteBreeds = favoriteBreeds,
-            isBreedsLoading = false,
-            errorLoadingBreeds = null,
+            isFavoriteBreedsLoading = false,
+            errorLoadingFavoriteBreeds = null,
             isRefreshLoading = true,
             errorRefreshLoading = null
         )
 
         fun favoriteBreedsRefreshingLoadingFailed(favoriteBreeds: List<String>, errorRefreshLoading: Exception?) = FavoriteBreedsViewState(
             favoriteBreeds = favoriteBreeds,
-            isBreedsLoading = false,
-            errorLoadingBreeds = null,
+            isFavoriteBreedsLoading = false,
+            errorLoadingFavoriteBreeds = null,
             isRefreshLoading = false,
             errorRefreshLoading = errorRefreshLoading
         )
