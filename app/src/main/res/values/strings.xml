@@ -32,6 +32,9 @@
     <string name="share_dialog_cancel_button">Cancel</string>
     <string name="send_to">Share image via</string>
 
+    //favorite breeds
+    <string name="favorite_breeds_title">Favorites</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

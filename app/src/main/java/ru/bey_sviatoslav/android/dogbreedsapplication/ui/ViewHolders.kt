@@ -5,25 +5,18 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.favorite_dogs_db.FavoriteDogImage
 import ru.bey_sviatoslav.android.dogbreedsapplication.favorite_dogs_db.FavoriteDogImagesDatabase
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.getFavoriteDogImageFromLink
+import ru.bey_sviatoslav.android.dogbreedsapplication.utils.getPhotosSuffix
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.getSubbreedsSuffix
-import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.LikeViewModel
 
 
 class BreedViewHolder(view: View, itemListener: (Pair<String, List<String>>) -> Unit) :
@@ -103,22 +96,64 @@ class BreedImageViewHolder(view: View, itemListener: (String) -> Unit, val fragm
 
     private fun onLikeClicked() {
         if (likeState) {
-            runBlocking { launch {
-                FavoriteDogImagesDatabase.getDatabaseIstance(fragment.context!!)
-                    .favoriteDogImageDao().deleteAsync(getFavoriteDogImageFromLink(breedImageLink))
-                checkIfImageInFavorites(breedImageLink)
-                setLikeState()
-            } }
-        }else{
-            runBlocking { launch {
-                FavoriteDogImagesDatabase.getDatabaseIstance(fragment.context!!)
-                    .favoriteDogImageDao().insertAsync(getFavoriteDogImageFromLink(breedImageLink))
-                checkIfImageInFavorites(breedImageLink)
-                setLikeState()
-            } }
+            runBlocking {
+                launch {
+                    FavoriteDogImagesDatabase.getDatabaseIstance(fragment.context!!)
+                        .favoriteDogImageDao()
+                        .deleteAsync(getFavoriteDogImageFromLink(breedImageLink))
+                    checkIfImageInFavorites(breedImageLink)
+                    setLikeState()
+                }
+            }
+        } else {
+            runBlocking {
+                launch {
+                    FavoriteDogImagesDatabase.getDatabaseIstance(fragment.context!!)
+                        .favoriteDogImageDao()
+                        .insertAsync(getFavoriteDogImageFromLink(breedImageLink))
+                    checkIfImageInFavorites(breedImageLink)
+                    setLikeState()
+                }
+            }
         }
     }
 }
+
+class FavoriteBreedViewHolder(
+    view: View,
+    itemListener: (String) -> Unit,
+    private val context: Context
+) :
+    RecyclerView.ViewHolder(view) {
+    private val favoriteBreedTxtVw = view.findViewById<TextView>(R.id.favorite_breed_name)
+    private val countOfFavoriteImagesTxtVw =
+        view.findViewById<TextView>(R.id.count_of_favorite_images)
+
+    private lateinit var favoriteBreed: String
+    private var countOfFavoriteImages: Int = 0
+
+    init {
+        view.setOnClickListener { itemListener(favoriteBreed) }
+    }
+
+    fun bind(favoriteBreed: String) {
+        this.favoriteBreed = favoriteBreed
+        favoriteBreedTxtVw.text = favoriteBreed[0].toUpperCase() + favoriteBreed.substring(1)
+        getCountOfFavoriteImages(favoriteBreed)
+    }
+
+    fun getCountOfFavoriteImages(favoriteBreed: String) {
+        runBlocking {
+            launch {
+                countOfFavoriteImages =
+                    FavoriteDogImagesDatabase.getDatabaseIstance(context).favoriteDogImageDao()
+                        .findDogImagesByBreedAsync(favoriteBreed).size
+                countOfFavoriteImagesTxtVw.text = if (countOfFavoriteImages == 0) "" else "(${countOfFavoriteImages} ${getPhotosSuffix(countOfFavoriteImages)})"
+            }
+        }
+    }
+}
+
 
 class MessageViewHolder(
     view: View,

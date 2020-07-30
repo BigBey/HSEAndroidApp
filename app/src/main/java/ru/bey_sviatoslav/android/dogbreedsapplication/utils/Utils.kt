@@ -22,6 +22,14 @@ fun getSubbreedsSuffix(count: Int): String{
     }
 }
 
+fun getPhotosSuffix(count: Int): String{
+    if(count == 1){
+        return "photo"
+    }else{
+        return "photos"
+    }
+}
+
 fun sharePhoto(url: String?, context: Context) {
     Picasso.with(context.applicationContext).load(url)
         .into(object : Target {

@@ -1,5 +1,6 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.favorite_dogs_db
 
+import androidx.recyclerview.widget.SortedList
 import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -13,6 +14,12 @@ interface FavoriteDogImageDao {
 
     @Query("SELECT * FROM favoritedogimage WHERE dogImageLink = (:dogImageLink)")
     fun findDogImageByLink(dogImageLink: String) : Flowable<FavoriteDogImage>
+
+    @Query("SELECT dogImageLink FROM  favoritedogimage WHERE breed = :breed")
+    fun findDogImagesByBreed(breed: String): Flowable<List<String>>
+
+    @Query("SELECT DISTINCT breed FROM favoritedogimage")
+    fun getAllBreeds(): Flowable<List<String>>
 
     @Insert
     fun insertAll(vararg dogImages: FavoriteDogImage): Completable
@@ -28,6 +35,9 @@ interface FavoriteDogImageDao {
 
     @Query("SELECT * FROM favoritedogimage WHERE dogImageLink = (:dogImageLink)")
     suspend fun findDogImageByLinkAsync(dogImageLink: String) : FavoriteDogImage
+
+    @Query("SELECT dogImageLink FROM  favoritedogimage WHERE breed = :breed")
+    suspend fun findDogImagesByBreedAsync(breed: String): List<String>
 
     @Insert
     suspend fun insertAllAsync(vararg dogImages: FavoriteDogImage)
