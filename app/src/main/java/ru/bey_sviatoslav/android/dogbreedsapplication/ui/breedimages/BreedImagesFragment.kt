@@ -66,7 +66,7 @@ class BreedImagesFragment : Fragment() {
 
     private fun initViews(){
         imgvw_back_to_breeds_from_images.setOnClickListener {
-            Coordinator.onSubbreedsPop(requireActivity().supportFragmentManager)
+            Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }
 
         imgvw_share.setOnClickListener {

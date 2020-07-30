@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_breed_images.*
 import kotlinx.android.synthetic.main.fragment_subbreeds.*
 
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
@@ -67,7 +66,7 @@ class SubbreedsFragment : Fragment() {
 
     private fun initViews() {
         imgvw_back_to_breeds.setOnClickListener {
-            Coordinator.onSubbreedsPop(requireActivity().supportFragmentManager)
+            Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }
 
         refresher_subbreeds.setOnRefreshListener {

@@ -36,11 +36,7 @@ class BreedImagesAdapter(
     fun setItems(items: List<String>, state: RecyclerState) {
         if (state == RecyclerState.ITEMS) {
             if (this.state == RecyclerState.ITEMS) {
-                if(items.size > 0){
-                    this.state = RecyclerState.ITEMS
-                }else {
-                    this.state = state
-                }
+                this.state = state
             } else {
                 this.state = state
                 notifyItemRemoved(0)

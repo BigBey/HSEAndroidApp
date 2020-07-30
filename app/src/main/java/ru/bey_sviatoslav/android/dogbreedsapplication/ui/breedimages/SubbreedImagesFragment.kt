@@ -1,32 +1,21 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages
 
-import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Picasso.LoadedFrom
-import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.fragment_breed_images.*
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.sharePhoto
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.SubbreedImagesViewModel
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 
 class SubbreedImagesFragment : Fragment() {
@@ -78,7 +67,7 @@ class SubbreedImagesFragment : Fragment() {
 
     private fun initViews(){
         imgvw_back_to_breeds_from_images.setOnClickListener {
-            Coordinator.onSubbreedsPop(requireActivity().supportFragmentManager)
+            Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }
 
         imgvw_share.setOnClickListener {

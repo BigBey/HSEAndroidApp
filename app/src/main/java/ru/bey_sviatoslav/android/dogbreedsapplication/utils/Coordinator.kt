@@ -60,7 +60,7 @@ object Coordinator {
 
     }
 
-    fun onSubbreedsPop(fm: FragmentManager) {
+    fun onFragmentPop(fm: FragmentManager) {
         fm.popBackStack()
     }
 }
