@@ -4,10 +4,10 @@
 
     <string name="main_title">Documents</string>
 
-    <string name="docs_loading_error">Error loading documents</string>
+    <string name="docs_loading_error">Error loading dogs</string>
     <string name="docs_loading_retry">Retry</string>
 
-    <string name="document_item_empty">There is no document yet</string>
+    <string name="document_item_empty">There is no dogs yet</string>
 
     <string name="download_description">Loading document</string>
 
@@ -34,6 +34,11 @@
 
     //favorite breeds
     <string name="favorite_breeds_title">Favorites</string>
+
+    //Errors
+    <string name="error_title">Some server error</string>
+    <string name="error_text">Try connect later</string>
+    <string name="ok">Ok</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

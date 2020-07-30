@@ -65,7 +65,7 @@ class SubbreedsFragment : Fragment() {
     }
 
     private fun initViews() {
-        imgvw_back_to_breeds.setOnClickListener {
+        btn_back_to_breeds.setOnClickListener {
             Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }
 
@@ -80,7 +80,7 @@ class SubbreedsFragment : Fragment() {
                 arguments?.getString("breedname") ?: "Breed name",
                 it
             )
-        }, { viewModel.onRefresh(arguments?.getString("breedname") ?: "Breed name") })
+        }, { viewModel.onRetry(arguments?.getString("breedname") ?: "Breed name") })
 
         recycler_subbreeds.adapter = adapter
         recycler_subbreeds.layoutManager = LinearLayoutManager(this.activity)

@@ -75,12 +75,28 @@ class BreedImagesAdapter(
                 itemListener = itemLikeListener,
                 fragment = fragment
             )
-            RecyclerState.LOADING, RecyclerState.EMPTY -> return LoadingViewHolder(
+            RecyclerState.LOADING -> return LoadingViewHolder(
                 view = LayoutInflater.from(parent.context).inflate(
                     layoutId,
                     parent,
                     false
                 )
+            )
+            RecyclerState.EMPTY -> return LoadingViewHolder(
+                view = LayoutInflater.from(parent.context).inflate(
+                    layoutId,
+                    parent,
+                    false
+                )
+            )
+            RecyclerState.ERROR -> return MessageViewHolder(
+                view = LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_error,
+                    parent,
+                    false
+                ),
+                buttonId = buttonId,
+                listener = reloadListener
             )
             else -> return MessageViewHolder(
                 view = LayoutInflater.from(parent.context).inflate(

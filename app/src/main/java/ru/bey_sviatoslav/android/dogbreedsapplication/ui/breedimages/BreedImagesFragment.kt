@@ -43,7 +43,7 @@ class BreedImagesFragment : Fragment() {
         initViews()
 
         viewModel.viewStateData.observe(this.viewLifecycleOwner, Observer {
-            val state = when{
+            val state = when {
                 it.isBreedImagesLoading -> RecyclerState.LOADING
                 it.errorLoadingBreedImages != null -> RecyclerState.ERROR
                 it.breedImages.isEmpty() -> RecyclerState.EMPTY
@@ -64,19 +64,30 @@ class BreedImagesFragment : Fragment() {
         })
     }
 
-    private fun initViews(){
-        imgvw_back_to_breeds_from_images.setOnClickListener {
+    private fun initViews() {
+        btn_back_to_breeds_from_images.setOnClickListener {
             Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }
 
         imgvw_share.setOnClickListener {
             MaterialAlertDialogBuilder(context)
                 .setTitle(resources.getString(R.string.share_dialog_title))
-                .setNegativeButton(resources.getString(R.string.share_dialog_cancel_button)){ dialog, which ->
+                .setNegativeButton(resources.getString(R.string.share_dialog_cancel_button)) { dialog, which ->
                     //Cancel
                 }
-                .setPositiveButton(resources.getString(R.string.share_dialog_confirm_button)){ dialog, which ->
-                    sharePhoto(adapter.getCurrentItem(viewpager_breed_images.currentItem), context!!)
+                .setPositiveButton(resources.getString(R.string.share_dialog_confirm_button)) { dialog, which ->
+                    try {
+                        sharePhoto(
+                            adapter.getCurrentItem(viewpager_breed_images.currentItem),
+                            context!!
+                        )
+                    } catch (e: Exception) {
+                        MaterialAlertDialogBuilder(context)
+                            .setTitle(resources.getString(R.string.error_title))
+                            .setMessage(resources.getString(R.string.error_text))
+                            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which -> }
+                            .show()
+                    }
                 }
                 .show()
         }
@@ -86,7 +97,11 @@ class BreedImagesFragment : Fragment() {
         }
         refresher_breed_images.setColorSchemeResources(R.color.colorAccent)
 
-        adapter = BreedImagesAdapter({viewModel.onRefresh(arguments?.getString("breedname") ?: "Breed name")}, {}, this)
+        adapter = BreedImagesAdapter({
+            viewModel.onRefresh(
+                arguments?.getString("breedname") ?: "Breed name"
+            )
+        }, { viewModel.onRetry(arguments?.getString("breedname") ?: "Breed name") }, this)
 
         viewpager_breed_images.adapter = adapter
         viewpager_breed_images.orientation = ViewPager2.ORIENTATION_VERTICAL

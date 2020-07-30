@@ -18,6 +18,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages.BreedImages
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.sharePhoto
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.FavoriteBreedImagesViewModel
+import java.lang.Exception
 
 class FavoriteBreedImagesFragment : Fragment() {
     private lateinit var viewModel: FavoriteBreedImagesViewModel
@@ -69,7 +70,7 @@ class FavoriteBreedImagesFragment : Fragment() {
     }
 
     private fun initViews() {
-        imgvw_back_to_breeds_from_images.setOnClickListener {
+        btn_back_to_breeds_from_images.setOnClickListener {
             Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }
 
@@ -80,10 +81,18 @@ class FavoriteBreedImagesFragment : Fragment() {
                     //Cancel
                 }
                 .setPositiveButton(resources.getString(R.string.share_dialog_confirm_button)) { dialog, which ->
-                    sharePhoto(
-                        adapter.getCurrentItem(viewpager_breed_images.currentItem),
-                        context!!
-                    )
+                    try {
+                        sharePhoto(
+                            adapter.getCurrentItem(viewpager_breed_images.currentItem),
+                            context!!
+                        )
+                    } catch (e: Exception) {
+                        MaterialAlertDialogBuilder(context)
+                            .setTitle(resources.getString(R.string.error_title))
+                            .setMessage(resources.getString(R.string.error_text))
+                            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which -> }
+                            .show()
+                    }
                 }
                 .show()
         }
@@ -94,16 +103,18 @@ class FavoriteBreedImagesFragment : Fragment() {
         refresher_breed_images.setColorSchemeResources(R.color.colorAccent)
 
         adapter = BreedImagesAdapter({
-            viewModel.onRefresh(
-                arguments?.getString("breedname") ?: "Breed name"
-            )
-        }, {}, this)
+        }, {viewModel.onRetry(
+            arguments?.getString("breedname") ?: "Breed name"
+        )}, this)
 
         viewpager_breed_images.adapter = adapter
         viewpager_breed_images.orientation = ViewPager2.ORIENTATION_VERTICAL
 
         val breedname = arguments?.getString("breedname") ?: "Breed name"
         toolbar_title_breed_images.text = breedname[0].toUpperCase() + breedname.substring(1)
+        toolbar_title_breed_images.textSize = 15F
+        toolbar_title_back_to_breeds.text = resources.getString(R.string.favorite_breeds_title)
+        toolbar_title_back_to_breeds.textSize = 15F
     }
 
     companion object {

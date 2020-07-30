@@ -35,7 +35,10 @@ class SubbreedImagesFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)
             .get(SubbreedImagesViewModel::class.java)
-        viewModel.onRetry(arguments?.getString("breedname") ?: "Breed name", arguments?.getString("subbreedname") ?: "Subbreed name")
+        viewModel.onRetry(
+            arguments?.getString("breedname") ?: "Breed name",
+            arguments?.getString("subbreedname") ?: "Subbreed name"
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,13 +47,14 @@ class SubbreedImagesFragment : Fragment() {
         initViews()
 
         viewModel.viewStateData.observe(this.viewLifecycleOwner, Observer {
-            val state = when{
+            val state = when {
                 it.isSubbreedImagesLoading -> RecyclerState.LOADING
                 it.errorLoadingSubbreedImages != null -> RecyclerState.ERROR
                 it.subbreedImages.isEmpty() -> RecyclerState.EMPTY
                 else -> RecyclerState.ITEMS
             }
-            val isRefreshable = !(it.isSubbreedImagesLoading || it.errorLoadingSubbreedImages != null)
+            val isRefreshable =
+                !(it.isSubbreedImagesLoading || it.errorLoadingSubbreedImages != null)
 
             refresher_breed_images.isEnabled = isRefreshable
             refresher_breed_images.isRefreshing = it.isRefreshLoading
@@ -65,29 +69,51 @@ class SubbreedImagesFragment : Fragment() {
         })
     }
 
-    private fun initViews(){
-        imgvw_back_to_breeds_from_images.setOnClickListener {
+    private fun initViews() {
+        btn_back_to_breeds_from_images.setOnClickListener {
             Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }
 
         imgvw_share.setOnClickListener {
             MaterialAlertDialogBuilder(context)
                 .setTitle(resources.getString(R.string.share_dialog_title))
-                .setNegativeButton(resources.getString(R.string.share_dialog_cancel_button)){ dialog, which ->
+                .setNegativeButton(resources.getString(R.string.share_dialog_cancel_button)) { dialog, which ->
                     //Cancel
                 }
-                .setPositiveButton(resources.getString(R.string.share_dialog_confirm_button)){ dialog, which ->
-                    sharePhoto(adapter.getCurrentItem(viewpager_breed_images.currentItem), context!!)
+                .setPositiveButton(resources.getString(R.string.share_dialog_confirm_button)) { dialog, which ->
+                    try {
+                        sharePhoto(
+                            adapter.getCurrentItem(viewpager_breed_images.currentItem),
+                            context!!
+                        )
+                    } catch (e: Exception) {
+                        MaterialAlertDialogBuilder(context)
+                            .setTitle(resources.getString(R.string.error_title))
+                            .setMessage(resources.getString(R.string.error_text))
+                            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which -> }
+                            .show()
+                    }
                 }
                 .show()
         }
 
         refresher_breed_images.setOnRefreshListener {
-            viewModel.onRefresh(arguments?.getString("breedname") ?: "Breed name", arguments?.getString("subbreedname") ?: "Subbreed name")
+            viewModel.onRefresh(
+                arguments?.getString("breedname") ?: "Breed name",
+                arguments?.getString("subbreedname") ?: "Subbreed name"
+            )
         }
         refresher_breed_images.setColorSchemeResources(R.color.colorAccent)
 
-        adapter = BreedImagesAdapter({viewModel.onRefresh(arguments?.getString("breedname") ?: "Breed name", arguments?.getString("subbreedname") ?: "Subbreed name")}, {}, this)
+        adapter = BreedImagesAdapter({},
+            {
+                viewModel.onRetry(
+                    arguments?.getString("breedname") ?: "Breed name",
+                    arguments?.getString("subbreedname") ?: "Subbreed name"
+                )
+            },
+            this
+        )
 
         viewpager_breed_images.adapter = adapter
         viewpager_breed_images.orientation = ViewPager2.ORIENTATION_VERTICAL

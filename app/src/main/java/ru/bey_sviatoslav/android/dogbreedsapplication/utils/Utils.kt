@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import androidx.core.content.FileProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
@@ -13,6 +14,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.favorite_dogs_db.FavoriteD
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.lang.Exception
 
 fun getSubbreedsSuffix(count: Int): String{
     if(count == 1){
@@ -30,11 +32,15 @@ fun getPhotosSuffix(count: Int): String{
     }
 }
 
-fun sharePhoto(url: String?, context: Context) {
+fun sharePhoto(url: String?, context: Context){
     Picasso.with(context.applicationContext).load(url)
         .into(object : Target {
             override fun onBitmapFailed() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(context.resources.getString(R.string.error_title))
+                    .setMessage(context.resources.getString(R.string.error_text))
+                    .setPositiveButton(context.resources.getString(R.string.ok)) { dialog, which -> }
+                    .show()
             }
 
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {

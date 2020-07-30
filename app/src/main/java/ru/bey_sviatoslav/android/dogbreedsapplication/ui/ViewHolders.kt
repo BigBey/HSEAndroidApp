@@ -161,7 +161,7 @@ class MessageViewHolder(
     listener: () -> Unit
 ) : RecyclerView.ViewHolder(view) {
     init {
-        view.findViewById<MaterialButton>(buttonId).setOnClickListener { listener() }
+        view.findViewById<Button>(buttonId).setOnClickListener { listener() }
     }
 }
 

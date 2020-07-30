@@ -75,7 +75,7 @@ class BreedsFragment : Fragment() {
                 it.first,
                 it.second.size
             )
-        }, { viewModel.onRefresh() })
+        }, { viewModel.onRetry() })
 
         breeds_recycler.adapter = adapter
         breeds_recycler.layoutManager = LinearLayoutManager(this.activity)

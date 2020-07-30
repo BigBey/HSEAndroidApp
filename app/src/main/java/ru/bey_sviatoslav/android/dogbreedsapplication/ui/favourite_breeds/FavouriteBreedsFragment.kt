@@ -73,7 +73,7 @@ class FavouriteBreedsFragment : Fragment() {
 
         adapter = FavoriteBreedsAdapter({
             Coordinator.onFavoriteBreedClicked(requireActivity().supportFragmentManager, it)
-        }, { viewModel.onRefresh() }, context!!)
+        }, { viewModel.onRetry() }, context!!)
 
         recycler_favorite_breeds.adapter = adapter
         recycler_favorite_breeds.layoutManager = LinearLayoutManager(this.activity)
