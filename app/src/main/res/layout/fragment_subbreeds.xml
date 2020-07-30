@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_favorite_breeds"
+    android:id="@+id/fragment_subbreeds"
     tools:context=".ui.breeds.BreedsFragment">
 
     <Toolbar
@@ -14,24 +14,47 @@
         android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize">
 
+        <LinearLayout
+            android:id="@+id/btn_back_to_breeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/imgvw_back_to_breeds"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:foregroundGravity="left"
+                android:src="@drawable/ic_left_arrow"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/toolbar_title_back_to_breeds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/breeds_title"
+                android:layout_gravity="left"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/favorite_breeds_title"
+            android:text="@string/subbreeds_title"
             android:layout_gravity="center"
-            android:id="@+id/toolbar_title_favorite"
+            android:id="@+id/toolbar_title_subbreeds"
             android:textSize="20sp"/>
 
 
     </Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refresher_favorite_breeds"
+        android:id="@+id/refresher_subbreeds"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_favorite_breeds"
+            android:id="@+id/recycler_subbreeds"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="@dimen/gutter_default"

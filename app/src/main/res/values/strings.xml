@@ -4,22 +4,41 @@
 
     <string name="main_title">Documents</string>
 
-    <string name="docs_loading_error">Error loading documents</string>
+    <string name="docs_loading_error">Error loading dogs</string>
     <string name="docs_loading_retry">Retry</string>
 
-    <string name="document_item_empty">There is no document yet</string>
+    <string name="document_item_empty">There is no dogs yet</string>
 
     <string name="download_description">Loading document</string>
 
     //breeds list
     <string name="breeds_title">Breeds</string>
+    <string name="subbreeds_title">Breed</string>
     <string name="sample_breed_name">Breed name</string>
+    <string name="sample_subbreed_name">Subbreed name</string>
     <string name="breed_name">%1$s[0].toUpperCase() %1$s.substring(1)</string>
     <string name="count_of_subbreeds">Count of subbreeds</string>
+
+    //images list
+    <string name="back">Back</string>
 
     //bottom navigation
     <string name="list_icon_title">List</string>
     <string name="favourites_icon_title">Favourites</string>
+
+    //share screen
+    <string name="share_dialog_title">Share photo</string>
+    <string name="share_dialog_confirm_button">Share</string>
+    <string name="share_dialog_cancel_button">Cancel</string>
+    <string name="send_to">Share image via</string>
+
+    //favorite breeds
+    <string name="favorite_breeds_title">Favorites</string>
+
+    //Errors
+    <string name="error_title">Some server error</string>
+    <string name="error_text">Try connect later</string>
+    <string name="ok">Ok</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
