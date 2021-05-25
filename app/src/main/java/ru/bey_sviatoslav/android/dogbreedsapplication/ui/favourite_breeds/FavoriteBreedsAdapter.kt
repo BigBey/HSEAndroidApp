@@ -1,6 +1,7 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.favourite_breeds
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,6 +10,8 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.*
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedsDiffCallback
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.SubbreedsDiffCallback
+
+const val TAGFavoriteBreedsAdapter = "FavoriteBreedsAdapter"
 
 class FavoriteBreedsAdapter(
     private val itemListener: (String) -> Unit,
@@ -30,6 +33,9 @@ class FavoriteBreedsAdapter(
         get() = R.id.retry_button
 
     fun setItems(items: List<String>, state: RecyclerState) {
+
+        Log.d(TAGFavoriteBreedsAdapter,"Кладем item")
+
         if (state == RecyclerState.ITEMS) {
             if (this.state == RecyclerState.ITEMS) {
                 this.state = state
@@ -55,10 +61,15 @@ class FavoriteBreedsAdapter(
         }
     }
 
-    override fun getItemCount(): Int = if (items.isNotEmpty()) items.size else 1
+    override fun getItemCount(): Int {
+        Log.d(TAGFavoriteBreedsAdapter,"Получили количество элемнтов")
+        return  if (items.isNotEmpty()) items.size else 1
+    }
 
-    override fun getItemViewType(position: Int) =
-        if (position == 0) state.viewType else position
+    override fun getItemViewType(position: Int) : Int {
+        Log.d(TAGFavoriteBreedsAdapter,"Получили количество элемнтов по типу")
+        return if (position == 0) state.viewType else position
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (state) {

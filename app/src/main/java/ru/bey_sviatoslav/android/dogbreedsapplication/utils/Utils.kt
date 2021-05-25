@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import androidx.core.content.FileProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
@@ -15,6 +16,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.lang.Exception
+
+const val TAGUtils = "Utils"
 
 fun getSubbreedsSuffix(count: Int): String{
     if(count == 1){
@@ -36,6 +39,7 @@ fun sharePhoto(url: String?, context: Context){
     Picasso.with(context.applicationContext).load(url)
         .into(object : Target {
             override fun onBitmapFailed() {
+                Log.d(TAGUtils, "Ошибка в загрузке")
                 MaterialAlertDialogBuilder(context)
                     .setTitle(context.resources.getString(R.string.error_title))
                     .setMessage(context.resources.getString(R.string.error_text))
@@ -44,6 +48,7 @@ fun sharePhoto(url: String?, context: Context){
             }
 
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                Log.d(TAGUtils, "Загрузилось")
                 val shareIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap!!, context))

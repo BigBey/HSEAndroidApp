@@ -1,5 +1,6 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.subbreeds
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,6 +11,8 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.ui.MessageViewHolder
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.SubbreedViewHolder
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedImagesDiffCallback
+
+const val TAGSubbreedsAdapter = "SubbreedsAdapter"
 
 class SubbreedsAdapter(
     private val itemListener: (String) -> Unit,
@@ -31,6 +34,9 @@ class SubbreedsAdapter(
         get() = R.id.retry_button
 
     fun setItems(items: List<String>, state: RecyclerState) {
+
+        Log.d(TAGSubbreedsAdapter,"Кладем item")
+
         if (state == RecyclerState.ITEMS) {
             if (this.state == RecyclerState.ITEMS) {
                 this.state = state
@@ -56,10 +62,15 @@ class SubbreedsAdapter(
         }
     }
 
-    override fun getItemCount(): Int = if (items.isNotEmpty()) items.size else 1
+    override fun getItemCount(): Int {
+        Log.d(TAGSubbreedsAdapter,"Получили количество элементов")
+        return if (items.isNotEmpty()) items.size else 1
+    }
 
-    override fun getItemViewType(position: Int) =
-        if (position == 0) state.viewType else position
+    override fun getItemViewType(position: Int): Int {
+        Log.d(TAGSubbreedsAdapter,"Получили количество элементов по типу")
+        return   if (position == 0) state.viewType else position
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (state) {

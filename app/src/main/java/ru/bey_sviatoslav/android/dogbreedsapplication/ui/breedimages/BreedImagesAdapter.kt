@@ -1,6 +1,7 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.bey_sviatoslav.android.dogbreedsapplication.R
 import ru.bey_sviatoslav.android.dogbreedsapplication.ui.*
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.BreedImagesDiffCallback
+
+const val TAGBreedImagesAdapter = "BreedImagesAdapter"
 
 class BreedImagesAdapter(
     private val itemLikeListener: (String) -> Unit,
@@ -29,7 +32,8 @@ class BreedImagesAdapter(
     private val buttonId: Int
         get() = R.id.retry_button
 
-    fun getCurrentItem(position: Int): String{
+    fun getCurrentItem(position: Int): String {
+        Log.d(TAGBreedImagesAdapter, "Получили item")
         return items[position]
     }
 
@@ -57,12 +61,18 @@ class BreedImagesAdapter(
                 notifyItemChanged(0)
             }
         }
+        Log.d(TAGBreedImagesAdapter, "Положили item")
     }
 
-    override fun getItemCount(): Int = if (items.isNotEmpty()) items.size else 1
+    override fun getItemCount(): Int {
+        Log.d(TAGBreedImagesAdapter, "Получили количество элемнтов")
+        return if (items.isNotEmpty()) items.size else 1
+    }
 
-    override fun getItemViewType(position: Int) =
-        if (position == 0) state.viewType else position
+    override fun getItemViewType(position: Int): Int {
+        Log.d(TAGBreedImagesAdapter, "Получили количество элемнтов по типу")
+        return if (position == 0) state.viewType else position
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (state) {

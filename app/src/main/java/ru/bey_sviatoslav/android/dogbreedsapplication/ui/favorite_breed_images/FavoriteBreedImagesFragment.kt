@@ -1,6 +1,8 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.favorite_breed_images
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,8 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.sharePhoto
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.FavoriteBreedImagesViewModel
 import java.lang.Exception
+
+const val TAGFavoriteBreedImagesFragment = "FavoriteBreedsImagesFragment"
 
 class FavoriteBreedImagesFragment : Fragment() {
     private lateinit var viewModel: FavoriteBreedImagesViewModel
@@ -69,7 +73,11 @@ class FavoriteBreedImagesFragment : Fragment() {
         })
     }
 
+    @SuppressLint("LongLogTag")
     private fun initViews() {
+
+        Log.d(TAGFavoriteBreedImagesFragment,"Инициализировали View")
+
         btn_back_to_breeds_from_images.setOnClickListener {
             Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }

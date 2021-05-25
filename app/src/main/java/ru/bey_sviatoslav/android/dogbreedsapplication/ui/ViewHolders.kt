@@ -1,6 +1,7 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -18,6 +19,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.utils.getFavoriteDogImageF
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.getPhotosSuffix
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.getSubbreedsSuffix
 
+const val TAGViewHolder = "ViewHolder"
 
 class BreedViewHolder(view: View, itemListener: (Pair<String, List<String>>) -> Unit) :
     RecyclerView.ViewHolder(view) {
@@ -31,6 +33,7 @@ class BreedViewHolder(view: View, itemListener: (Pair<String, List<String>>) -> 
     }
 
     fun bind(breed: Pair<String, List<String>>) {
+        Log.d(TAGViewHolder, "bind")
         this.breed = breed
         name.text = breed.first[0].toUpperCase() + breed.first.substring(1)
         countOfSubbreeds.text =
@@ -49,6 +52,7 @@ class SubbreedViewHolder(view: View, itemListener: (String) -> Unit) :
     }
 
     fun bind(subbreed: String) {
+        Log.d(TAGViewHolder, "bind")
         this.subbreed = subbreed
         name.text = subbreed[0].toUpperCase() + subbreed.substring(1)
     }
@@ -68,6 +72,7 @@ class BreedImageViewHolder(view: View, itemListener: (String) -> Unit, val fragm
     }
 
     fun bind(breedImageLink: String) {
+        Log.d(TAGViewHolder, "bind")
         this.breedImageLink = breedImageLink
         Glide.with(itemView).load(breedImageLink).placeholder(R.drawable.ic_dog).into(breedImage)
         checkIfImageInFavorites(breedImageLink)
@@ -84,6 +89,7 @@ class BreedImageViewHolder(view: View, itemListener: (String) -> Unit, val fragm
                 likeState = dogImage != null
             }
         }
+        Log.d(TAGViewHolder, "Проверили image на favorite")
     }
 
     private fun setLikeState() {
@@ -96,6 +102,7 @@ class BreedImageViewHolder(view: View, itemListener: (String) -> Unit, val fragm
 
     private fun onLikeClicked() {
         if (likeState) {
+            Log.d(TAGViewHolder, "Like нажат")
             runBlocking {
                 launch {
                     FavoriteDogImagesDatabase.getDatabaseIstance(fragment.context!!)
@@ -106,6 +113,7 @@ class BreedImageViewHolder(view: View, itemListener: (String) -> Unit, val fragm
                 }
             }
         } else {
+            Log.d(TAGViewHolder, "Like не нажат")
             runBlocking {
                 launch {
                     FavoriteDogImagesDatabase.getDatabaseIstance(fragment.context!!)
@@ -143,6 +151,7 @@ class FavoriteBreedViewHolder(
     }
 
     fun getCountOfFavoriteImages(favoriteBreed: String) {
+        Log.d(TAGViewHolder, "Получаем количество favorite images")
         runBlocking {
             launch {
                 countOfFavoriteImages =

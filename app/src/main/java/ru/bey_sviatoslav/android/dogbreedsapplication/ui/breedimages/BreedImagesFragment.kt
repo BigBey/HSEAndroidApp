@@ -1,6 +1,7 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.sharePhoto
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.BreedImagesViewModel
+
+const val TAGBreedImagesFragment = "BreedImagesFragment"
 
 class BreedImagesFragment : Fragment() {
     private lateinit var viewModel: BreedImagesViewModel
@@ -65,6 +68,9 @@ class BreedImagesFragment : Fragment() {
     }
 
     private fun initViews() {
+
+        Log.d(TAGBreedImagesFragment,"Инициализировали View")
+
         btn_back_to_breeds_from_images.setOnClickListener {
             Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }

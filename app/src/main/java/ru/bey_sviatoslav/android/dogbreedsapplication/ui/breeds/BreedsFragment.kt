@@ -1,6 +1,7 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breeds
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.ui.RecyclerState
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.BreedsViewModel
 
+const val TAGBreedsFragment = "BreedsFragment"
 
 class BreedsFragment : Fragment() {
     private lateinit var viewModel: BreedsViewModel
@@ -64,6 +66,9 @@ class BreedsFragment : Fragment() {
     }
 
     private fun initViews() {
+
+        Log.d(TAGBreedsFragment,"Инициализировали View")
+
         refresher.setOnRefreshListener {
             viewModel.onRefresh()
         }

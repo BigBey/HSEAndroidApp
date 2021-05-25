@@ -1,6 +1,7 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.favorite_dogs_db
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,19 +14,24 @@ abstract class FavoriteDogImagesDatabase : RoomDatabase(){
         @Volatile
         private var databaseInstance: FavoriteDogImagesDatabase? = null
 
-        fun getDatabaseIstance(mContext: Context): FavoriteDogImagesDatabase =
-            databaseInstance ?: synchronized(this) {
+        fun getDatabaseIstance(mContext: Context): FavoriteDogImagesDatabase {
+            Log.d(TAG,"Мы получили экземпляр базы данных.")
+            return databaseInstance ?: synchronized(this) {
                 databaseInstance ?: buildDatabaseInstance(mContext).also {
                     databaseInstance = it
                 }
             }
+        }
 
-        private fun buildDatabaseInstance(mContext: Context) =
-            Room.databaseBuilder(mContext, FavoriteDogImagesDatabase::class.java, DB_NAME)
+        private fun buildDatabaseInstance(mContext: Context): FavoriteDogImagesDatabase {
+            Log.d(TAG,"Мы создали экземпляр базы данных.")
+            return Room.databaseBuilder(mContext, FavoriteDogImagesDatabase::class.java, DB_NAME)
                 .fallbackToDestructiveMigration()
                 .build()
+        }
     }
 }
 
+const val TAG = "Database"
 const val DB_VERSION = 1
 const val DB_NAME = "FavoriteDogImages.db"

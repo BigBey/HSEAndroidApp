@@ -1,6 +1,7 @@
 package ru.bey_sviatoslav.android.dogbreedsapplication.ui.breedimages
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import ru.bey_sviatoslav.android.dogbreedsapplication.utils.Coordinator
 import ru.bey_sviatoslav.android.dogbreedsapplication.utils.sharePhoto
 import ru.bey_sviatoslav.android.dogbreedsapplication.viewmodel.SubbreedImagesViewModel
 
+const val TAGSubbreedImagesFragment = "SubbreedImagesFragment"
 
 class SubbreedImagesFragment : Fragment() {
     private lateinit var viewModel: SubbreedImagesViewModel
@@ -70,11 +72,16 @@ class SubbreedImagesFragment : Fragment() {
     }
 
     private fun initViews() {
+
+        Log.d(TAGSubbreedImagesFragment,"Инициализировали View")
+
         btn_back_to_breeds_from_images.setOnClickListener {
             Coordinator.onFragmentPop(requireActivity().supportFragmentManager)
         }
 
         imgvw_share.setOnClickListener {
+            Log.d(TAGSubbreedImagesFragment,"Нажали на imgvw_share")
+
             MaterialAlertDialogBuilder(context)
                 .setTitle(resources.getString(R.string.share_dialog_title))
                 .setNegativeButton(resources.getString(R.string.share_dialog_cancel_button)) { dialog, which ->
